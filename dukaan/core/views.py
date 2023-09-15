@@ -18,13 +18,18 @@ def contact(request):
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
+        for field in form:
+            print("Field Error:", field.name,  field.errors)
+
 
         if form.is_valid():
             form.save()
-            
+            print("Reached past valid")
             return redirect('/login/')
+    
     else:
         form = SignupForm()
+
 
     return render(request, 'core/signup.html',{
         'form': form
